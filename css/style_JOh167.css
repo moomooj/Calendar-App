@@ -1,0 +1,26 @@
+/* reset css */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+/* reset css */
+
+main {
+  margin-left: 220px;
+  padding: 40px;
+}
