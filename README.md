@@ -17,15 +17,13 @@ The app includes a study calendar, a to-do list, and a study timer — designed 
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla JS only — no frameworks)
+- JavaScript
 
 ---
 
 ## 🔒 Restrictions (per project rules)
 
-- ❌ No external libraries (e.g., Bootstrap, Tailwind, jQuery)
-- ❌ No code copying — everything built from scratch
-- ✅ Images used are royalty-free with proper attribution
+- ❌ No external libraries or framework (e.g., Bootstrap, Tailwind, jQuery)
 
 ---
 
