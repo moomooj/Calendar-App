@@ -192,3 +192,17 @@ main {
   color: #aaa;
   text-decoration: line-through;
 }
+
+.study-time-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.modal-study-time {
+  font-size: 14px;
+  margin-left: 12px;
+  color: #5d5fef;
+  font-weight: 500;
+}
