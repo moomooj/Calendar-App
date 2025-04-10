@@ -13,8 +13,8 @@ function getTodoMap() {
   const map = {};
   boards.forEach((board) => {
     const date = board.date;
-    const count = board.todos?.length || 0;
-    if (date) map[date] = count;
+    const todos = board.todos || [];
+    if (date) map[date] = todos;
   });
   return map;
 }
@@ -56,11 +56,15 @@ function renderCalendar() {
   for (let day = 1; day <= lastDate; day++) {
     const cell = document.createElement("div");
     cell.className = "calendar-cell";
-    cell.textContent = day;
 
     const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`;
+
+    const dateText = document.createElement("span");
+    dateText.className = "date-num";
+    dateText.textContent = day;
+    cell.appendChild(dateText);
 
     if (
       today.getFullYear() === year &&
@@ -70,9 +74,18 @@ function renderCalendar() {
       cell.classList.add("today");
     }
 
-    if (todoMap[dateStr]) {
-      cell.classList.add("has-task");
-      cell.setAttribute("data-task", todoMap[dateStr]);
+    const todos = todoMap[dateStr];
+    if (todos && todos.length > 0) {
+      const ul = document.createElement("ul");
+      ul.className = "todo-preview";
+
+      todos.slice(0, 3).forEach((todo) => {
+        const li = document.createElement("li");
+        li.textContent = todo.text;
+        ul.appendChild(li);
+      });
+
+      cell.appendChild(ul);
     }
 
     calendarDays.appendChild(cell);
