@@ -17,7 +17,6 @@ timerTab.addEventListener("click", () => {
   stopwatchPanel.classList.remove("active");
 });
 
-// ---------------- Stopwatch ----------------
 const stopwatchDisplay = document.getElementById("stopwatch-display");
 let stopwatchTime = 0;
 let stopwatchInterval = null;
@@ -56,7 +55,6 @@ document.getElementById("reset-stopwatch").addEventListener("click", () => {
 
 updateStopwatchDisplay();
 
-// ---------------- Timer ----------------
 let timerInterval = null;
 let remainingSeconds = 0;
 let timerOriginalSeconds = 0;
@@ -177,3 +175,38 @@ setInterval(() => {
     })
   );
 }, 60000);
+
+const savedStopwatch = JSON.parse(
+  localStorage.getItem("stopwatchState") || "{}"
+);
+if (savedStopwatch.seconds !== undefined) {
+  stopwatchTime = savedStopwatch.seconds;
+  updateStopwatchDisplay();
+  if (savedStopwatch.running) {
+    stopwatchInterval = setInterval(() => {
+      stopwatchTime++;
+      updateStopwatchDisplay();
+    }, 1000);
+  }
+}
+
+const savedTimer = JSON.parse(localStorage.getItem("timerState") || "{}");
+if (savedTimer.original !== undefined && savedTimer.remaining !== undefined) {
+  timerOriginalSeconds = savedTimer.original;
+  remainingSeconds = savedTimer.remaining;
+  updateTimerDisplay();
+  if (savedTimer.running) {
+    document.getElementById("timer-inputs").style.display = "none";
+    timerInterval = setInterval(() => {
+      if (remainingSeconds > 0) {
+        remainingSeconds--;
+        updateTimerDisplay();
+      } else {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        saveStudySeconds(timerOriginalSeconds);
+        alert("Time's up!");
+      }
+    }, 1000);
+  }
+}
