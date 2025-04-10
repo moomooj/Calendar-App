@@ -1,5 +1,3 @@
-// ✅ todoBoard_JOh167.js 통합 버전 (체크버튼 + 삭제 + 드래그앤드롭 + 순서변경 + 버튼정렬 개선)
-
 const addBoardBtn = document.getElementById("add-board-btn");
 const boardModal = document.getElementById("board-modal");
 const boardForm = document.getElementById("board-form");
@@ -9,7 +7,33 @@ const boardTitleInput = document.getElementById("board-title-input");
 const boardDateInput = document.getElementById("board-date-input");
 const boardContainer = document.getElementById("board-container");
 
+const STORAGE_KEY = "myTodoBoards";
 let draggedItem = null;
+
+function loadBoards() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    const boards = JSON.parse(saved);
+    boards.forEach(createBoardFromData);
+  }
+}
+
+function saveBoards() {
+  const boards = [];
+  document.querySelectorAll(".board").forEach((boardEl) => {
+    const title = boardEl.querySelector("h3").textContent;
+    const date = boardEl.querySelector("small").textContent;
+    const todos = [];
+    boardEl.querySelectorAll(".todo-item").forEach((todoEl) => {
+      todos.push({
+        text: todoEl.querySelector("span").textContent,
+        done: todoEl.querySelector("span").classList.contains("done"),
+      });
+    });
+    boards.push({ title, date, todos });
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(boards));
+}
 
 function handleDragStart(e) {
   draggedItem = e.target;
@@ -22,6 +46,7 @@ function handleDragStart(e) {
 function handleDragEnd(e) {
   e.target.style.display = "flex";
   draggedItem = null;
+  saveBoards();
 }
 
 function handleDragOver(e) {
@@ -38,6 +63,7 @@ function handleDragOver(e) {
 
 function handleDrop(e) {
   e.preventDefault();
+  saveBoards();
 }
 
 function getDragAfterElement(container, y) {
@@ -70,21 +96,31 @@ cancelBoardBtn.addEventListener("click", () => {
 
 boardForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
   const title = boardTitleInput.value.trim();
   const date = boardDateInput.value;
   if (!title) {
-    alert("보드 이름을 입력하세요!");
+    alert("Please enter a board name!");
     return;
   }
+  createBoardFromData({ title, date, todos: [] });
+  boardModal.style.display = "none";
+  boardTitleInput.value = "";
+  boardDateInput.value = "";
+  saveBoards();
+});
 
+function createBoardFromData(data) {
+  const { title, date, todos } = data;
   const board = document.createElement("div");
   board.className = "board";
 
   const closeBtn = document.createElement("button");
   closeBtn.className = "close-board";
   closeBtn.textContent = "✕";
-  closeBtn.onclick = () => board.remove();
+  closeBtn.onclick = () => {
+    board.remove();
+    saveBoards();
+  };
 
   const heading = document.createElement("h3");
   heading.textContent = title;
@@ -102,7 +138,7 @@ boardForm.addEventListener("submit", (e) => {
 
   const input = document.createElement("input");
   input.type = "text";
-  input.placeholder = `${title} 을/를 추가해보세요!`;
+  input.placeholder = `Add a task to ${title}`;
   input.required = true;
 
   todoForm.appendChild(input);
@@ -110,43 +146,9 @@ boardForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (text === "") return;
-
-    const li = document.createElement("li");
-    li.className = "todo-item";
-    li.id = `todo-${Date.now()}`;
-    li.draggable = true;
-
-    const span = document.createElement("span");
-    span.textContent = text;
-
-    const btnContainer = document.createElement("div");
-    btnContainer.style.display = "flex";
-    btnContainer.style.gap = "6px";
-    btnContainer.style.marginLeft = "auto";
-
-    const checkBtn = document.createElement("button");
-    checkBtn.type = "button";
-    checkBtn.textContent = "✔️";
-    checkBtn.onclick = () => {
-      span.classList.toggle("done");
-    };
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.type = "button";
-    deleteBtn.textContent = "❌";
-    deleteBtn.onclick = () => li.remove();
-
-    btnContainer.appendChild(checkBtn);
-    btnContainer.appendChild(deleteBtn);
-
-    li.appendChild(span);
-    li.appendChild(btnContainer);
-
-    li.addEventListener("dragstart", handleDragStart);
-    li.addEventListener("dragend", handleDragEnd);
-
-    ul.appendChild(li);
+    addTodoItem(ul, text, false);
     input.value = "";
+    saveBoards();
   });
 
   board.appendChild(closeBtn);
@@ -156,7 +158,49 @@ boardForm.addEventListener("submit", (e) => {
   board.appendChild(ul);
   boardContainer.appendChild(board);
 
-  boardModal.style.display = "none";
-  boardTitleInput.value = "";
-  boardDateInput.value = "";
-});
+  todos.forEach((todo) => addTodoItem(ul, todo.text, todo.done));
+}
+
+function addTodoItem(ul, text, done) {
+  const li = document.createElement("li");
+  li.className = "todo-item";
+  li.id = `todo-${Date.now()}`;
+  li.draggable = true;
+
+  const span = document.createElement("span");
+  span.textContent = text;
+  if (done) span.classList.add("done");
+
+  const btnContainer = document.createElement("div");
+  btnContainer.style.display = "flex";
+  btnContainer.style.gap = "6px";
+  btnContainer.style.marginLeft = "auto";
+
+  const checkBtn = document.createElement("button");
+  checkBtn.type = "button";
+  checkBtn.textContent = "✔️";
+  checkBtn.onclick = () => {
+    span.classList.toggle("done");
+    saveBoards();
+  };
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.textContent = "❌";
+  deleteBtn.onclick = () => {
+    li.remove();
+    saveBoards();
+  };
+
+  btnContainer.appendChild(checkBtn);
+  btnContainer.appendChild(deleteBtn);
+  li.appendChild(span);
+  li.appendChild(btnContainer);
+
+  li.addEventListener("dragstart", handleDragStart);
+  li.addEventListener("dragend", handleDragEnd);
+
+  ul.appendChild(li);
+}
+
+loadBoards();
