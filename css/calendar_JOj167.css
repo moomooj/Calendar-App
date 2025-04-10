@@ -118,10 +118,12 @@ main {
   background: white;
   padding: 20px 30px;
   border-radius: 12px;
-  max-width: 400px;
+  max-width: 600px;
   width: 90%;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
   position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 #modal-close {
@@ -132,8 +134,15 @@ main {
   cursor: pointer;
 }
 
+#modal-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .modal-content h3 {
   margin-top: 0;
+  width: 100%;
 }
 
 .modal-content ul {
@@ -150,9 +159,10 @@ main {
   background: #f9f9f9;
   padding: 16px;
   border-radius: 10px;
-  margin-bottom: 16px;
+  width: calc(50% - 8px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
+  flex-shrink: 0;
 }
 
 .board-block:hover {
@@ -164,6 +174,18 @@ main {
   margin-bottom: 8px;
   color: #333;
   font-size: 16px;
+}
+
+.board-block ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.board-block li {
+  font-size: 14px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+  color: #444;
 }
 
 .board-block li.done {

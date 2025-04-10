@@ -99,6 +99,7 @@ function showTodoModal(dateStr) {
   if (matchedBoards.length === 0) {
     body.innerHTML = `
       <p>No To-Do found for ${dateStr}.</p>
+      <br />
       <a href="page2_JOh167.html">👉 Go to To-Do List</a>
     `;
   } else {

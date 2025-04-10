@@ -1,5 +1,5 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 250px;
@@ -9,17 +9,16 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  transition: transform 0.3s ease;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .sidebar h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #333;
+  flex-shrink: 0;
 }
 
 .nav-section {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
