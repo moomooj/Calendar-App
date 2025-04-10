@@ -7,10 +7,10 @@
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
   padding: 20px;
-  font-family: "Arial", sans-serif;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  transition: transform 0.3s ease;
 }
 
 .sidebar h2 {
@@ -49,4 +49,27 @@
 
 .sidebar ul li a:hover {
   background-color: #e0e0e0;
+}
+
+/* toggle */
+#toggle-btn {
+  align-self: flex-end;
+  background: none;
+  color: #000;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar.closed {
+  transform: translateX(-190px);
+}
+
+.sidebar.closed h2,
+.sidebar.closed .nav-section {
+  display: none;
+}
+
+.sidebar.closed + main {
+  margin-left: 40px;
 }

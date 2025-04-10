@@ -18,4 +18,13 @@ ol,
 ul {
   list-style: none;
 }
+
 /* reset css */
+
+main {
+  margin-left: 220px;
+  padding: 40px;
+  min-height: 100vh;
+  background-color: #ecf0f1;
+  transition: margin-left 0.3s ease;
+}
