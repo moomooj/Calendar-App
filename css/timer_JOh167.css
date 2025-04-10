@@ -55,8 +55,7 @@
   padding: 10px 18px;
   border: none;
   border-radius: 8px;
-  background: #5d5fef;
-  color: #fff;
+  background: #eee;
   cursor: pointer;
   font-size: 14px;
 }
@@ -82,4 +81,10 @@
   font-size: 16px;
   color: #333;
   font-weight: 500;
+}
+
+.btn-group button:hover {
+  background-color: #5d5fef;
+  color: #fff;
+  transition: background-color 0.2s ease;
 }
