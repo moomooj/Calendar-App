@@ -139,9 +139,8 @@ function showTodoModal(dateStr) {
     html += `
      <div class="noTodo">
         <p>No To-Do found</p>
-        <br />
         <a href="page2_JOh167.html">👉 Go to To-Do List</a>
-        <p>Or.</p>
+        <p>Want to Study?</p>
         <a href="page3_JOh167.html">👉 Go to Study Timer</a>
       </div>
     `;
