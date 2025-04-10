@@ -44,7 +44,6 @@ function renderCalendar() {
   ];
 
   monthYear.textContent = `${monthNames[month]} ${year}`;
-
   document.querySelectorAll(".calendar-cell").forEach((el) => el.remove());
 
   for (let i = 0; i < firstDay; i++) {
@@ -66,6 +65,18 @@ function renderCalendar() {
     dateText.textContent = day;
     cell.appendChild(dateText);
 
+    const todos = todoMap[dateStr];
+    if (todos && todos.length > 0) {
+      const ul = document.createElement("ul");
+      ul.className = "todo-preview";
+      todos.slice(0, 3).forEach((todo) => {
+        const li = document.createElement("li");
+        li.textContent = todo.text;
+        ul.appendChild(li);
+      });
+      cell.appendChild(ul);
+    }
+
     if (
       today.getFullYear() === year &&
       today.getMonth() === month &&
@@ -74,23 +85,50 @@ function renderCalendar() {
       cell.classList.add("today");
     }
 
-    const todos = todoMap[dateStr];
-    if (todos && todos.length > 0) {
-      const ul = document.createElement("ul");
-      ul.className = "todo-preview";
-
-      todos.slice(0, 3).forEach((todo) => {
-        const li = document.createElement("li");
-        li.textContent = todo.text;
-        ul.appendChild(li);
-      });
-
-      cell.appendChild(ul);
-    }
+    cell.addEventListener("click", () => {
+      showTodoModal(dateStr);
+    });
 
     calendarDays.appendChild(cell);
   }
 }
+
+function showTodoModal(dateStr) {
+  const modal = document.getElementById("todo-modal");
+  const body = document.getElementById("modal-body");
+  const boards = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+  const board = boards.find((b) => b.date === dateStr);
+
+  if (!board) {
+    body.innerHTML = `
+      <p>No To-Do found for ${dateStr}.</p>
+      <a href="page2_JOh167.html">👉 Go to To-Do List</a>
+    `;
+  } else {
+    const todoItems = board.todos
+      .map((todo) => `<li>${todo.text}</li>`)
+      .join("");
+    body.innerHTML = `
+      <h3>${board.title}</h3>
+      <p>${dateStr}</p>
+      <ul>${todoItems}</ul>
+    `;
+  }
+
+  modal.style.display = "flex";
+}
+
+document.getElementById("modal-close").onclick = () => {
+  document.getElementById("todo-modal").style.display = "none";
+};
+
+window.addEventListener("click", (e) => {
+  const modal = document.getElementById("todo-modal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
 
 prevBtn.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
