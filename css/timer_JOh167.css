@@ -1,5 +1,5 @@
 .study-timer-wrapper {
-  max-width: 500px;
+  max-width: 800px;
   margin: 40px auto;
   background: #fff;
   padding: 30px;
@@ -101,7 +101,6 @@
 }
 
 .video-wrapper {
-  max-width: 720px;
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
