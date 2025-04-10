@@ -1,5 +1,5 @@
 const STORAGE_KEY = "myTodoBoards";
-const STUDY_LOG_KEY = "studyTimeLog";
+const STUDY_LOG_KEY = "studyAppState";
 const calendarDays = document.getElementById("calendar-days");
 const monthYear = document.getElementById("month-year");
 const prevBtn = document.getElementById("prev");
