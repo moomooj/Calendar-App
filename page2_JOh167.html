@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendar</title>
+    <title>To Do list</title>
     <link rel="stylesheet" href="css/nav_JOh167.css" />
     <link rel="stylesheet" href="css/style_JOh167.css" />
+    <link rel="stylesheet" href="css/todo_JOh167.css" />
     <script defer src="script/toggle_JOh167.js"></script>
+    <script defer src="script/todoBoard_JOh167.js"></script>
   </head>
   <body>
     <nav class="sidebar">
@@ -28,9 +30,24 @@
         </ul>
       </div>
     </nav>
-    <main></main>
-    <footer>
-      <p>&copy; 2025 My To-Do Project | Created for CSIS 1280</p>
-    </footer>
+    <main>
+      <button id="add-board-btn">Add To Do</button>
+      <div class="board-container" id="board-container"></div>
+
+      <div class="modal" id="board-modal">
+        <form class="modal-content" id="board-form">
+          <h2>Create a To-Do</h2>
+          <input
+            type="text"
+            id="board-title-input"
+            placeholder="Board name"
+            required
+          />
+          <input type="date" id="board-date-input" />
+          <button type="submit">Create</button>
+          <button type="button" id="cancel-board">Cancel</button>
+        </form>
+      </div>
+    </main>
   </body>
 </html>

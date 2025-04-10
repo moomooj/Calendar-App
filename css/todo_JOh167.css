@@ -1,0 +1,113 @@
+#add-board-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 50px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.board-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 80px;
+}
+
+.board {
+  background: #fefefe;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  min-height: 200px;
+}
+
+.board h3 {
+  margin: 0 0 10px;
+}
+
+.board small {
+  color: #888;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.todo-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.todo-form input {
+  flex: 1;
+  padding: 8px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: 5px 10px;
+  margin-bottom: 6px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.todo-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+}
+
+.close-board {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-list {
+  flex-grow: 1;
+  min-height: 100px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.todo-item span.done {
+  text-decoration: line-through;
+  color: #aaa;
+}
