@@ -9,8 +9,8 @@ This project was created for CSIS 1280 to demonstrate practical web development 
 
 ## 🌟 Live Demo
 
-🔗 [Visit the Website](https://moomooj.github.io/study-productivity-app/)  
-📂 [View GitHub Repository](https://github.com/moomooj/study-productivity-app)
+🔗 [Visit the Website](https://moomooj.github.io/Calendar-App/)  
+📂 [View GitHub Repository](https://github.com/moomooj/Calendar-App)
 
 ---
 
@@ -63,15 +63,6 @@ This project was built following all rules outlined in the CSIS 1280 Final Proje
 - ✅ Fully responsive layout
 - 🎥 One embedded YouTube video
 - ✏️ All content is original or properly cited
-
----
-
-## 🙋‍♂️ About the Developer
-
-**Juyoung Oh (JU)**  
-Front-End Developer | Vancouver, BC  
-📧 [Email](mailto:ohj17@student.douglascollege.ca)  
-🔗 [GitHub - moomooj](https://github.com/moomooj)
 
 ---
 
