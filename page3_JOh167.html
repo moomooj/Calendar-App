@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calendar</title>
+    <title>Timer</title>
     <link rel="stylesheet" href="css/nav_JOh167.css" />
     <link rel="stylesheet" href="css/style_JOh167.css" />
+    <link rel="stylesheet" href="css/timer_JOh167.css" />
     <script defer src="script/toggle_JOh167.js"></script>
+    <script defer src="script/studytimer_JOh167.js"></script>
   </head>
   <body>
     <nav class="sidebar">
@@ -29,9 +31,54 @@
       </div>
     </nav>
 
-    <main></main>
-    <footer>
-      <p>&copy; 2025 My To-Do Project | Created for CSIS 1280</p>
-    </footer>
+    <main>
+      <div class="study-timer-wrapper">
+        <div class="mode-switch">
+          <button id="stopwatch-tab" class="active">⏱ Stopwatch</button>
+          <button id="timer-tab">⏳ Timer</button>
+        </div>
+
+        <div id="stopwatch-panel" class="panel active">
+          <h2>Stopwatch</h2>
+          <div class="time-display" id="stopwatch-display">00:00:00</div>
+          <div class="btn-group">
+            <button id="start-stopwatch">Start</button>
+            <button id="pause-stopwatch">Pause</button>
+            <button id="reset-stopwatch">Reset</button>
+          </div>
+        </div>
+
+        <div id="timer-panel" class="panel">
+          <h2>Timer</h2>
+          <div class="input-group">
+            <input type="number" id="hours" placeholder="hr" min="0" />
+            <input
+              type="number"
+              id="minutes"
+              placeholder="min"
+              min="0"
+              max="59"
+            />
+            <input
+              type="number"
+              id="seconds"
+              placeholder="sec"
+              min="0"
+              max="59"
+            />
+          </div>
+          <div class="time-display" id="timer-display">00:00</div>
+          <div class="btn-group">
+            <button id="start-timer">Start</button>
+            <button id="pause-timer">Pause</button>
+            <button id="reset-timer">Reset</button>
+          </div>
+        </div>
+
+        <div class="total-time" id="total-time-display">
+          Total Study Time: 00:00:00
+        </div>
+      </div>
+    </main>
   </body>
 </html>

@@ -13,10 +13,6 @@
   box-sizing: border-box;
 }
 
-.sidebar h2 {
-  flex-shrink: 0;
-}
-
 .nav-section {
   flex: 1 1 auto;
   display: flex;
