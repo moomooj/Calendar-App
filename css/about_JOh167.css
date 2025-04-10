@@ -42,7 +42,6 @@ main {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 24px;
-  border: 6px solid #eeeeee;
 }
 
 .profile-card h1 {
