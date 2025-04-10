@@ -1,3 +1,5 @@
+const STORAGE_KEY = "studyAppState";
+
 const stopwatchTab = document.getElementById("stopwatch-tab");
 const timerTab = document.getElementById("timer-tab");
 const stopwatchPanel = document.getElementById("stopwatch-panel");
@@ -20,7 +22,6 @@ timerTab.addEventListener("click", () => {
 const stopwatchDisplay = document.getElementById("stopwatch-display");
 let stopwatchTime = 0;
 let stopwatchInterval = null;
-let studyAutoSave = null;
 
 function updateStopwatchDisplay() {
   const hrs = String(Math.floor(stopwatchTime / 3600)).padStart(2, "0");
@@ -55,10 +56,10 @@ document.getElementById("reset-stopwatch").addEventListener("click", () => {
 
 updateStopwatchDisplay();
 
+const timerDisplay = document.getElementById("timer-display");
 let timerInterval = null;
 let remainingSeconds = 0;
 let timerOriginalSeconds = 0;
-const timerDisplay = document.getElementById("timer-display");
 
 function updateTimerDisplay() {
   const hrs = String(Math.floor(remainingSeconds / 3600)).padStart(2, "0");
@@ -118,23 +119,21 @@ document.getElementById("reset-timer").addEventListener("click", () => {
 
 updateTimerDisplay();
 
-const STUDY_LOG_KEY = "studyTimeLog";
-
 function getTodayKey() {
   return new Date().toISOString().split("T")[0];
 }
 
 function saveStudySeconds(seconds) {
   const key = getTodayKey();
-  const data = JSON.parse(localStorage.getItem(STUDY_LOG_KEY) || "{}");
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
   if (!data[key]) data[key] = 0;
   data[key] += seconds;
-  localStorage.setItem(STUDY_LOG_KEY, JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   updateTotalTimeDisplay();
 }
 
 function getTotalTodaySeconds() {
-  const data = JSON.parse(localStorage.getItem(STUDY_LOG_KEY) || "{}");
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
   return data[getTodayKey()] || 0;
 }
 
@@ -148,65 +147,23 @@ function formatTime(seconds) {
 function updateTotalTimeDisplay() {
   const el = document.getElementById("total-time-display");
   const total = getTotalTodaySeconds();
-  el.textContent = `Total Study Time: ${formatTime(total)}`;
+  el.textContent = `Today's Total Study Time: ${formatTime(total)}`;
 }
 
 updateTotalTimeDisplay();
 
 setInterval(() => {
-  const studyLog = JSON.parse(localStorage.getItem(STUDY_LOG_KEY) || "{}");
-  studyLog[getTodayKey()] = getTotalTodaySeconds();
-  localStorage.setItem(STUDY_LOG_KEY, JSON.stringify(studyLog));
-
-  localStorage.setItem(
-    "stopwatchState",
-    JSON.stringify({
-      seconds: stopwatchTime,
-      running: !!stopwatchInterval,
-    })
-  );
-
-  localStorage.setItem(
-    "timerState",
-    JSON.stringify({
-      original: timerOriginalSeconds,
-      remaining: remainingSeconds,
-      running: !!timerInterval,
-    })
-  );
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  const today = getTodayKey();
+  data[today] = getTotalTodaySeconds();
+  data.stopwatch = {
+    seconds: stopwatchTime,
+    running: !!stopwatchInterval,
+  };
+  data.timer = {
+    original: timerOriginalSeconds,
+    remaining: remainingSeconds,
+    running: !!timerInterval,
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }, 60000);
-
-const savedStopwatch = JSON.parse(
-  localStorage.getItem("stopwatchState") || "{}"
-);
-if (savedStopwatch.seconds !== undefined) {
-  stopwatchTime = savedStopwatch.seconds;
-  updateStopwatchDisplay();
-  if (savedStopwatch.running) {
-    stopwatchInterval = setInterval(() => {
-      stopwatchTime++;
-      updateStopwatchDisplay();
-    }, 1000);
-  }
-}
-
-const savedTimer = JSON.parse(localStorage.getItem("timerState") || "{}");
-if (savedTimer.original !== undefined && savedTimer.remaining !== undefined) {
-  timerOriginalSeconds = savedTimer.original;
-  remainingSeconds = savedTimer.remaining;
-  updateTimerDisplay();
-  if (savedTimer.running) {
-    document.getElementById("timer-inputs").style.display = "none";
-    timerInterval = setInterval(() => {
-      if (remainingSeconds > 0) {
-        remainingSeconds--;
-        updateTimerDisplay();
-      } else {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        saveStudySeconds(timerOriginalSeconds);
-        alert("Time's up!");
-      }
-    }, 1000);
-  }
-}
