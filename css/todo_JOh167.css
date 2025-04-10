@@ -126,17 +126,16 @@
 
 @media (max-width: 768px) {
   #add-board-btn {
-    position: fixed;
     top: 90vh;
     right: 20px;
     font-size: 15px;
     padding: 15px 10px;
-    border: none;
-    border-radius: 50px;
-    background-color: #fff;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    max-width: 160px;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
   }
   .board {
     width: 95%;
