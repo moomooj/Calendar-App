@@ -62,14 +62,6 @@ function renderCalendar() {
     dateText.textContent = day;
     cell.appendChild(dateText);
 
-    if (
-      today.getFullYear() === year &&
-      today.getMonth() === month &&
-      today.getDate() === day
-    ) {
-      cell.classList.add("today");
-    }
-
     const boards = todoMap[dateStr];
     if (boards && boards.length > 0) {
       const ul = document.createElement("ul");
@@ -80,6 +72,14 @@ function renderCalendar() {
         ul.appendChild(li);
       });
       cell.appendChild(ul);
+    }
+
+    if (
+      today.getFullYear() === year &&
+      today.getMonth() === month &&
+      today.getDate() === day
+    ) {
+      cell.classList.add("today");
     }
 
     cell.addEventListener("click", () => {
@@ -105,7 +105,12 @@ function showTodoModal(dateStr) {
     let html = `<h3>${dateStr}</h3>`;
     matchedBoards.forEach((board) => {
       const todos = board.todos || [];
-      const todoItems = todos.map((todo) => `<li>${todo.text}</li>`).join("");
+      const todoItems = todos
+        .map((todo) => {
+          const className = todo.done ? "done" : "";
+          return `<li class="${className}">${todo.text}</li>`;
+        })
+        .join("");
       html += `
         <div class="board-block">
           <strong>${board.title}</strong>

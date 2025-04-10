@@ -147,12 +147,26 @@ main {
 }
 
 .board-block {
-  margin-bottom: 20px;
+  background: #f9f9f9;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.board-block:hover {
+  transform: translateY(-2px);
 }
 
 .board-block strong {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   color: #333;
-  font-size: 15px;
+  font-size: 16px;
+}
+
+.board-block li.done {
+  color: #aaa;
+  text-decoration: line-through;
 }
