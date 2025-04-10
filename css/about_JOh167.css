@@ -1,0 +1,123 @@
+body,
+html {
+  background: #f5f5f5;
+}
+main {
+  margin-left: 250px;
+  height: 100vh;
+  width: calc(100vw - 250px);
+  background: #f5f5f5;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-fullscreen {
+  height: 100%;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 60px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.profile-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 24px;
+  border: 6px solid #eeeeee;
+}
+
+.profile-card h1 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: 0.2s ease;
+  color: white;
+}
+
+.btn.github {
+  background: #000;
+}
+
+.btn.contact {
+  background: #4f83ff;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.project-info {
+  width: 100%;
+  border-radius: 12px;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+
+.project-info section + section {
+  margin-top: 28px;
+}
+
+.project-info h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #111;
+}
+
+.project-info .highlight {
+  font-weight: 600;
+  color: #292a47;
+}
+
+.feature-list {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.feature-list li {
+  margin-bottom: 8px;
+  color: #444;
+  font-size: 15px;
+}
