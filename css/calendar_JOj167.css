@@ -140,7 +140,7 @@ main {
   gap: 16px;
 }
 
-.modal-content h3 {
+.modal-content h2 {
   margin-top: 0;
   width: 100%;
 }
@@ -195,7 +195,7 @@ main {
 
 .study-time-label {
   font-size: 12px;
-  color: #666;
+  color: #000;
   margin-top: 4px;
   line-height: 1.2;
 }
@@ -203,6 +203,13 @@ main {
 .modal-study-time {
   font-size: 14px;
   margin-left: 12px;
-  color: #5d5fef;
   font-weight: 500;
+}
+
+.today .study-time-label {
+  color: #ffffff;
+}
+
+.today .todo-preview {
+  color: #ffffff;
 }

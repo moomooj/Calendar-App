@@ -1,4 +1,5 @@
 const STORAGE_KEY = "myTodoBoards";
+const STUDY_LOG_KEY = "studyTimeLog";
 const calendarDays = document.getElementById("calendar-days");
 const monthYear = document.getElementById("month-year");
 const prevBtn = document.getElementById("prev");
@@ -19,11 +20,33 @@ function getTodoMap() {
   return map;
 }
 
+function getFormattedHourMin(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  return `${h}h ${m}m`;
+}
+
+function getFormattedFullTime(seconds) {
+  const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
+  //return `${h} H ${m} M ${s} S`;
+
+  return `Study Time : ${h !== "00" ? h + " hrs, " : ""} ${
+    m !== "00" ? m + " min, " : ""
+  } ${s !== "00" ? s + " sec. " : ""}`;
+}
+
+function getStudyLog() {
+  return JSON.parse(localStorage.getItem(STUDY_LOG_KEY) || "{}");
+}
+
 function renderCalendar() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const today = new Date();
   const todoMap = getTodoMap();
+  const studyLog = getStudyLog();
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
   const monthNames = [
@@ -56,6 +79,7 @@ function renderCalendar() {
     const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`;
+    cell.dataset.date = dateStr;
 
     const dateText = document.createElement("span");
     dateText.className = "date-num";
@@ -72,6 +96,14 @@ function renderCalendar() {
         ul.appendChild(li);
       });
       cell.appendChild(ul);
+    }
+
+    const seconds = studyLog[dateStr] || 0;
+    if (seconds > 0) {
+      const timeEl = document.createElement("div");
+      timeEl.className = "study-time-label";
+      timeEl.textContent = `${getFormattedHourMin(seconds)}`;
+      cell.appendChild(timeEl);
     }
 
     if (
@@ -96,14 +128,24 @@ function showTodoModal(dateStr) {
   const boards = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   const matchedBoards = boards.filter((b) => b.date === dateStr);
 
+  let html = `<h2>
+    <span id="modal-date-text">${dateStr}</span>
+    <span class="modal-study-time">${getFormattedFullTime(
+      getStudyLog()[dateStr] || 0
+    )}</span>
+  </h2>`;
+
   if (matchedBoards.length === 0) {
-    body.innerHTML = `
-      <p>No To-Do found for ${dateStr}.</p>
-      <br />
-      <a href="page2_JOh167.html">👉 Go to To-Do List</a>
+    html += `
+     <div class="noTodo">
+        <p>No To-Do found</p>
+        <br />
+        <a href="page2_JOh167.html">👉 Go to To-Do List</a>
+        <p>Or.</p>
+        <a href="page3_JOh167.html">👉 Go to Study Timer</a>
+      </div>
     `;
   } else {
-    let html = `<h3>${dateStr}</h3>`;
     matchedBoards.forEach((board) => {
       const todos = board.todos || [];
       const todoItems = todos
@@ -119,9 +161,9 @@ function showTodoModal(dateStr) {
         </div>
       `;
     });
-    body.innerHTML = html;
   }
 
+  body.innerHTML = html;
   modal.style.display = "flex";
 }
 
