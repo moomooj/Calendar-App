@@ -31,27 +31,23 @@
       </div>
     </nav>
     <main>
-      <h1>📅 My Study Calendar</h1>
+      <section class="calendar-wrapper">
+        <header class="calendar-header">
+          <button id="prev">←</button>
+          <h2 id="month-year"></h2>
+          <button id="next">→</button>
+        </header>
 
-      <div class="calendar-container">
-        <div class="calendar-header">
-          <button id="prev-month">←</button>
-          <div id="month-year"></div>
-          <button id="next-month">→</button>
+        <div class="calendar-grid" id="calendar-days">
+          <div class="day-name">SUN</div>
+          <div class="day-name">MON</div>
+          <div class="day-name">TUE</div>
+          <div class="day-name">WED</div>
+          <div class="day-name">THU</div>
+          <div class="day-name">FRI</div>
+          <div class="day-name">SAT</div>
         </div>
-
-        <div class="calendar-days">
-          <div>Sun</div>
-          <div>Mon</div>
-          <div>Tue</div>
-          <div>Wed</div>
-          <div>Thu</div>
-          <div>Fri</div>
-          <div>Sat</div>
-        </div>
-
-        <div class="calendar-dates" id="calendar-dates"></div>
-      </div>
+      </section>
     </main>
   </body>
 </html>
