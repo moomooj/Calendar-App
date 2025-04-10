@@ -125,6 +125,11 @@
 }
 
 @media (max-width: 768px) {
+  main {
+    margin: 0;
+    padding: 0;
+  }
+
   #add-board-btn {
     top: 90vh;
     right: 20px;
