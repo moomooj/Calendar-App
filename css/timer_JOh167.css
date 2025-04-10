@@ -105,3 +105,9 @@
   border-radius: 12px;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .study-timer-wrapper {
+    padding: 30px 5px;
+  }
+}
