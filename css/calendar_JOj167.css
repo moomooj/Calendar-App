@@ -99,6 +99,7 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 3ch;
 }
 
 .modal {
@@ -244,4 +245,73 @@ main {
 .noTodo a:hover {
   background-color: #4346d9;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .calendar-wrapper {
+    height: auto;
+    width: 95vw;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .calendar-header {
+    font-size: 18px;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .calendar-header button {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .day-name {
+    font-size: 12px;
+  }
+
+  .calendar-cell {
+    min-height: 60px;
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .date-num {
+    font-size: 14px;
+  }
+
+  .todo-preview {
+    font-size: 11px;
+    max-height: 50px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 16px 20px;
+  }
+
+  .board-block {
+    width: 100%;
+  }
+
+  .modal-study-time {
+    font-size: 13px;
+    margin-left: 0;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .noTodo p {
+    font-size: 14px;
+  }
+
+  .noTodo a {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
 }
