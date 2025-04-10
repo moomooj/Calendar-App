@@ -6,6 +6,6 @@ toggleBtn.addEventListener("click", () => {
   if (sidebar.classList.contains("closed")) {
     toggleBtn.textContent = "☰";
   } else {
-    toggleBtn.textContent = "←";
+    toggleBtn.textContent = "X";
   }
 });
