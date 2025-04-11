@@ -124,6 +124,11 @@
   color: #909eb3;
 }
 
+input:invalid {
+  border: 1px solid red;
+  background-color: #fff5f5;
+}
+
 @media (max-width: 768px) {
   #add-board-btn {
     top: 80px;

@@ -90,22 +90,29 @@ addBoardBtn.addEventListener("click", () => {
 
 cancelBoardBtn.addEventListener("click", () => {
   boardModal.style.display = "none";
-  boardTitleInput.value = "";
-  boardDateInput.value = "";
+  boardForm.reset();
 });
 
 boardForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const title = boardTitleInput.value.trim();
   const date = boardDateInput.value;
-  if (!title) {
-    alert("Please enter a board name!");
+
+  if (title.length < 2) {
+    alert("Board name must be at least 2 characters.");
+    boardTitleInput.focus();
     return;
   }
+
+  if (!date) {
+    alert("Please select a date.");
+    boardDateInput.focus();
+    return;
+  }
+
   createBoardFromData({ title, date, todos: [] });
   boardModal.style.display = "none";
-  boardTitleInput.value = "";
-  boardDateInput.value = "";
+  boardForm.reset();
   saveBoards();
 });
 
