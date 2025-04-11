@@ -124,8 +124,8 @@
   color: #909eb3;
 }
 
-input:invalid {
-  border: 1px solid red;
+#board-title-input:invalid {
+  border: 1px solid rgb(198, 177, 177);
   background-color: #fff5f5;
 }
 
